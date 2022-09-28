@@ -1,0 +1,35 @@
+header {
+  width: 100%;
+  display: flex;
+  padding: 1%;
+  background-color: rgb(247, 247, 247);
+}
+
+#logo {
+  background: url(../assets//images/logo.png) no-repeat;
+  background-size: 100% 100%;
+  width: 70px;
+  height: 70px;
+  margin-right: 1%;
+}
+
+#nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 80%;
+}
+
+#ul-nav {
+  display: flex;
+}
+
+#auth-panel {
+  display: flex;
+}
+
+.nav-link {
+  margin-right: 25%;
+  font-size: 20px;
+  cursor: pointer;
+}
