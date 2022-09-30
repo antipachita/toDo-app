@@ -1,0 +1,48 @@
+#reg-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+#reg-container {
+  display: flex;
+  flex-direction: column;
+  background-color: #dededf;
+  margin-top: 6%;
+  width: 30%;
+  height: 580px;
+}
+
+#reg-title {
+  text-align: center;
+}
+
+#login-container {
+  display: flex;
+  align-items: center;
+}
+
+#login-password {
+  display: flex;
+  align-items: center;
+}
+
+#reg-login {
+  height: 30px;
+  width: 100%;
+}
+
+#pas-login {
+  height: 30px;
+  width: 100%;
+}
+
+#reg-btn {
+  display: flex;
+  justify-content: center;
+}
+
+.reg-item {
+  margin-bottom: 7%;
+}

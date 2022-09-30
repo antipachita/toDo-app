@@ -15,11 +15,6 @@ const baseConfig = {
                 use: [MiniCssExtractPlugin.loader, 'css-loader'],
             },
             {
-                test: /.(ts|tsx)$/i,
-                loader: 'ts-loader',
-                exclude: ['/node_modules/'],
-            },
-            {
                 test: /\.(png|svg|jpg|jpeg|gif)$/i,
                 type: 'asset/resource',
             },

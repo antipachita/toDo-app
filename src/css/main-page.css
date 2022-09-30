@@ -1,0 +1,24 @@
+#main {
+  display: flex;
+  flex-direction: column;
+  padding: 1.5%;
+  width: 100%;
+}
+
+#main-container {
+  width: 100%;
+}
+
+#main-title {
+  font-size: 32px;
+}
+
+#create-board-btn {
+  margin-top: 1%;
+  width: 10%;
+  height: 30px;
+  background-color: #014d54;
+  color: #e2d5c6;
+  font-size: 18px;
+  cursor: pointer;
+}
