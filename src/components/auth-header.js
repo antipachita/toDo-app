@@ -6,7 +6,7 @@ class AuthHeader {
     <div id='logo'></div>
     <nav id='nav'>
       <ul id='ul-nav'>
-        <li class='nav-link'>Главная</li>
+        <li class='nav-link' id='nav-main-link'>Главная</li>
         <li class='nav-link'>Профиль</li>
       </ul>
       <ul id='auth-panel'>

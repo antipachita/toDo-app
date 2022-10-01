@@ -1,0 +1,18 @@
+#board-panel {
+  display: flex;
+  justify-content: space-between;
+}
+
+#btn-container {
+  width: 9%;
+}
+
+#create-column-btn {
+  width: 100%;
+  height: 55px;
+}
+
+#boards-page-container {
+  display: flex;
+  flex-direction: column;
+}
