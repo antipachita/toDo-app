@@ -97,21 +97,17 @@ import Sortable, {sortable} from '../services/Sortable';
     });
   }
 
-  function toDo() {
-    const addTodo = document.querySelector('.add-todo');
-    const todoWrapper = document.querySelector('.wrapper');
-    addTodo.addEventListener('click', function(e) {
-      e.preventDefault()
-      const newTodo = document.querySelector('.todo-name');
+  function toDo(value, wrapper) {
+    
       const todo = [];
-      if(newTodo.value != '') {
-        console.log(newTodo.value)
-        todo.push(newTodo.value);
+      if(value != '') {
+        console.log(value)
+        todo.push(value);
         let newTodoList = document.createElement('div');
         newTodoList.className = 'item';
         for (let i = 0; i < todo.length; i++) {
-          newTodoList.innerHTML = newTodo.value;
-          todoWrapper.appendChild(newTodoList);
+          newTodoList.innerHTML = value;
+          wrapper.append(newTodoList);
         }
         if (todo.length > 0) {
           let item = document.querySelectorAll('.item');
@@ -119,18 +115,19 @@ import Sortable, {sortable} from '../services/Sortable';
             let deletTodo = document.createElement('div');
             deletTodo.className = 'delete-task';
             deletTodo.innerHTML = '&#10006';
-            item[j].appendChild(deletTodo);
+            item[j].append(deletTodo);
             deletTodo.addEventListener('click', function () {
-              todoWrapper.removeChild(item[j]);
+              wrapper.removeChild(item[j]);
             });
           }
         }
-        newTodo.value = '';
+        new Sortable(wrapper, {
+          animation: 300
+        });
+        
       }
-    });
-    new Sortable(todoWrapper, {
-      animation: 300
-    });
+    
+   
   }
 
   function ColumnBtn() {
