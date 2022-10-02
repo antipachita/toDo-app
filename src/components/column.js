@@ -34,7 +34,6 @@ class Column {
             body.push(entry);
           }
           const inputValue = (Object.fromEntries(body));
-          const wrapperItem = wrapper;
           listeners.toDo(inputValue.task, wrapper);
         }
     });

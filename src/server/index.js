@@ -11,13 +11,14 @@ const corsOptions ={
   optionSuccessStatus:200,
 }
 
-app.use(cors(corsOptions))
+app.use(cors(corsOptions));
 app.use(express.json());
 app.use('/auth', authRouter);
 
 const start = async () => {
   try {
-    await mongoose.connect('mongodb+srv://vladimir:hnpjQHlCdfLPDHPI@cluster0.znovbmi.mongodb.net/auth?retryWrites=true&w=majority')
+    await mongoose.connect('mongodb+srv://vladimir:hnpjQHlCdfLPDHPI@cluster0.znovbmi.mongodb.net/auth?retryWrites=true&w=majority');
+    
     app.listen(PORT, () => console.log(`server started on ${PORT}`))
   } catch (e) {
     console.log(e)

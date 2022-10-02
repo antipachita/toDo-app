@@ -1,6 +1,7 @@
 #board-panel {
   display: flex;
   justify-content: space-between;
+  margin-bottom: 1%;
 }
 
 #btn-container {

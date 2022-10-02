@@ -5,6 +5,9 @@ const jwt = require('jsonwebtoken');
 const { validationResult } = require('express-validator');
 const {secret} = require('./config')
 
+const {MongoClient} = require('mongodb');
+
+
 const generateAcessToken = (id, roles) => {
   const payload = {
     id,
@@ -14,6 +17,16 @@ const generateAcessToken = (id, roles) => {
 }
 
 class authController {
+  async changeUser(req, res) {
+  const userNewData = req.body;
+  const userInfo = await User.find({username: userNewData.login});
+  
+  await User.findOneAndUpdate({username: userNewData.login}, { boards: [...userInfo[0].boards,
+    {name: userNewData.name, description: userNewData.description, id: userNewData.id, columns: userNewData.columns }]}, 
+    {new: true});
+  return res.json({message: 'Данные успешно обновлены'});
+  }
+
   async registration(req, res) {
     try {
       const errors = validationResult(req);
@@ -27,7 +40,7 @@ class authController {
       }
       const hashPassword = bcrypt.hashSync(password, 7);
       const userRole = await Role.findOne({value: 'USER'});
-      const user = new User({username, password: hashPassword, roles:[userRole.value]})
+      const user = new User({username, password: hashPassword,boards: [], id: '', roles:[userRole.value]})
       await user.save();
       return res.json({message: 'Пользователь успешно зарегистрирован'});
     } catch(e) {
@@ -48,7 +61,7 @@ class authController {
         return res.status(400).json({message: `Введен неверный пароль`});
       }
       const token = generateAcessToken(user._id, user.roles);
-      return res.json({token})
+      return res.json({token, username})
 
     } catch(e) {
       console.log(e);

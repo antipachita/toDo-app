@@ -17,17 +17,6 @@ class BoardPage {
         </div>
       </div>
       <div id='columns-container'>
-        <div class='todo'>
-          <div class='todo-wrapper'>
-            <h4 class='todo-title'>Дела на сегодня</h4>
-            <form class='task-form'>
-              <input type='text' class='todo-name' name='task'>
-              <button class='add-todo'>Add</button>
-            </form>
-            <div class='wrapper'>
-            </div>
-          </div>
-        </div>
         
       </div>
     </div>

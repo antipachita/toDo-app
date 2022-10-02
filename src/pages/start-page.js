@@ -1,4 +1,4 @@
-export class StartPage {
+class StartPage {
 
   getHTML() {
     return `
@@ -7,3 +7,5 @@ export class StartPage {
     `
   }
 }
+
+export const startPage = new StartPage();

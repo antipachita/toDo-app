@@ -8,6 +8,9 @@ import {column} from '../components/column';
 import {api} from '../api/api';
 import {createBoardField} from '../components/board-field';
 import Sortable, {sortable} from '../services/Sortable';
+import {model} from './model';
+import { v4 as uuidv4 } from 'uuid';
+
 
   function createSigIn() {
     const signUp = document.querySelector('#sign-up');
@@ -26,6 +29,7 @@ import Sortable, {sortable} from '../services/Sortable';
         }
         console.log(Object.fromEntries(body))
         await api.createUser(Object.fromEntries(body));
+        
       });
     });
   }
@@ -44,11 +48,20 @@ import Sortable, {sortable} from '../services/Sortable';
         for (let entry of data.entries()){
           body.push(entry);
         }
-        const token = await api.loginUser(Object.fromEntries(body));
-        if (token) {
+        const userInfo = await api.loginUser(Object.fromEntries(body));
+        model.login = userInfo.username;
+        model.token = userInfo.token;
+        if (userInfo) {
+          const userData = await api.getUsers(model.login);
           document.querySelector('#header').innerHTML= authHeader.getHTML();
           document.querySelector('#main').innerHTML= main.getHTML();
           popUp();
+          createBoard();
+          
+          const mainContainer = document.querySelector('#main-container');
+          for (let i = 0; i < userData.boards.length; i++) {
+            mainContainer.append(createBoardField(userData.boards[i].name, userData.boards[i].description, userData.boards[i].id))
+          }
         }
       });
     });
@@ -70,12 +83,17 @@ import Sortable, {sortable} from '../services/Sortable';
 
   function createBoard() {
     const openPopUp = document.querySelector('#approve-create-board-btn');
-    openPopUp.addEventListener('click', function (e){
+    console.log(1)
+    openPopUp.addEventListener('click', async function (e){
       e.preventDefault();
       const mainContainer = document.querySelector('#main-container');
       const inputName = document.querySelector('#name-input');
       const inputDescrpt = document.querySelector('#descr-input');
-      mainContainer.append(createBoardField(inputName.value, inputDescrpt.value));
+      const uuid = uuidv4();
+      if (inputName.value != ''){
+        mainContainer.append(createBoardField(inputName.value, inputDescrpt.value, uuid));
+        await api.updateUser(model.login, inputName.value, inputDescrpt.value, uuid);
+      }
     });
   }
 
@@ -98,39 +116,31 @@ import Sortable, {sortable} from '../services/Sortable';
   }
 
   function toDo(value, wrapper) {
-    
-      const todo = [];
-      if(value != '') {
-        console.log(value)
-        todo.push(value);
-        let newTodoList = document.createElement('div');
-        newTodoList.className = 'item';
-        for (let i = 0; i < todo.length; i++) {
-          newTodoList.innerHTML = value;
-          wrapper.append(newTodoList);
-        }
-        if (todo.length > 0) {
-          let item = document.querySelectorAll('.item');
-          for (let j = 0; j < item.length; j++) {
-            let deletTodo = document.createElement('div');
-            deletTodo.className = 'delete-task';
-            deletTodo.innerHTML = '&#10006';
-            item[j].append(deletTodo);
-            deletTodo.addEventListener('click', function () {
-              wrapper.removeChild(item[j]);
-            });
-          }
-        }
-        new Sortable(wrapper, {
-          animation: 300
-        });
+    if(value != '') { 
+      const newTodoList = document.createElement('div');
+      newTodoList.className = 'item';
+      newTodoList.innerHTML = value;
+      wrapper.append(newTodoList);
         
-      }
-    
-   
+      const deletTodo = document.createElement('div');
+      deletTodo.className = 'delete-task';
+      deletTodo.innerHTML = '&#10006';
+      newTodoList.append(deletTodo);
+
+      newTodoList.addEventListener('click', function (e) {
+        e.currentTarget.classList.toggle('completed');
+      });
+      deletTodo.addEventListener('click', function () {
+        newTodoList.remove();
+      });
+  
+      new Sortable(wrapper, {
+        animation: 300
+      });
+    } 
   }
 
-  function ColumnBtn() {
+  function ColumnBtnPopUp() {
     const createBtn = document.querySelector('#create-column-btn');
     const closePopUp = document.querySelector('#pop-up-close');
     const popUp = document.querySelector('#board-pop-up');
@@ -151,8 +161,9 @@ import Sortable, {sortable} from '../services/Sortable';
       const columnsContainer = document.querySelector('#columns-container');
       const columnName = document.querySelector('#name-input');
       columnsContainer.append(column.getElement(columnName.value));
+      api.updateUser(model.login)
       
     });
   }
 
-export default {createSigIn, createLogin, popUp, createBoard, openBoardBtn, nav, toDo, ColumnBtn, createColumnBtn};
+export default {createSigIn, createLogin, popUp, createBoard, openBoardBtn, nav, toDo, ColumnBtnPopUp, createColumnBtn};

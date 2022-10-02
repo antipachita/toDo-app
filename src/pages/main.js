@@ -10,16 +10,7 @@ class MainPage {
       <div id='main-container'>
         <h2 id='main-title'>Главная странциа</h2>
         <button id='create-board-btn'>Создать доску</button>
-        <div class='board-field'>
-          <div class='info-field'>
-            <h3 class='name-field'>Board<h3>
-            <h4 class='descrpt-field field-subtitle'>Board<h4>
-          </div>
-          <div class='btn-container'>
-            <button class='field-btn open-board-btn'>Открыть доску</button>
-            <button class='field-btn delete-board'>Удалить доску</button>
-          </div>
-        </div>
+        
         
       </div>
       <div id='pop-up'>

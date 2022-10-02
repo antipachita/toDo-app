@@ -1,6 +1,6 @@
 import listeners from './listeners';
-import {StartPage} from '../pages/start-page';
-import {Header} from '../components/header';
+import {startPage} from '../pages/start-page';
+import {header} from '../components/header';
 import {authHeader} from '../components/auth-header';
 import {main} from '../pages/main';
 import {boardPage} from '../pages/board-page';
@@ -14,13 +14,11 @@ export class View {
   }
 
   createPage() {
-    document.querySelector('#header').innerHTML = authHeader.getHTML();
-    document.querySelector('#main').innerHTML = boardPage.getHtml();
-    // listeners.createSigIn();
-    // listeners.createLogin();
-    listeners.nav();
-    listeners.ColumnBtn();
-    listeners.createColumnBtn();
+    document.querySelector('#header').innerHTML = header.getHTML();
+    document.querySelector('#main').innerHTML = startPage.getHTML();
+    listeners.createSigIn();
+    listeners.createLogin();
+   
     
   }
 

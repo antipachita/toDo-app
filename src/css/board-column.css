@@ -34,9 +34,7 @@
   margin-bottom: 2%;
 }
 
-.task-form {
 
-}
 
 .todo-name {
   width: 100%;
@@ -70,4 +68,9 @@
   right: 5%;
   cursor: pointer;
 }
-
+.item.completed {
+  background-color: rgb(51, 117, 71);
+  text-decoration: line-through;
+  cursor: pointer;
+  transition: 0.7s;
+}
