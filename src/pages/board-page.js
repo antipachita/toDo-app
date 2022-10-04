@@ -6,11 +6,12 @@ import '../css/board-pop-up.css';
 class BoardPage {
   getHtml(boardname, description) {
     return `
+    <div id='update-background'></div>
     <div id='boards-page-container'>
       <div id='board-panel'>
         <div id='titles-container'>
-          <h2>Название доски: ${boardname}</h2>
-          <h3>Описание доски: ${description}</h3>
+          <h2 id='boards-name-title'>Название доски: ${boardname}</h2>
+          <h3 id='boards-name-subtitle'>Описание доски: ${description}</h3>
         </div>
         <div id='btn-container'>
           <button id='create-column-btn'>Создать список</button>
@@ -37,6 +38,7 @@ class BoardPage {
           </div>
         </div>
       </div>
+     
     `
   }
 }

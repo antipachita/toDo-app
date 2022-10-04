@@ -147,6 +147,17 @@ class authController {
       {new: true});
     return res.json({message: 'Данные успешно обновлены'});
   }
+
+  async updateTask(req, res) {
+    const columnInfo = req.body;
+    const oldInf = await Column.find({login: columnInfo.login, board: columnInfo.board, columnId: columnInfo.columnId});
+    const newArr = oldInf[0].tasks.map(task => task === columnInfo.oldTask? task = columnInfo.newTask:task);
+
+    await Column.findOneAndUpdate({login: columnInfo.login, board: columnInfo.board, columnId: columnInfo.columnId}, 
+      { tasks: newArr}, 
+      {new: true});
+    return res.json({message: 'Данные успешно обновлены'});
+  }
 }
 
 module.exports = new authController();

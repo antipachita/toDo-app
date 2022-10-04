@@ -3,6 +3,7 @@ class Model {
     this.login = '';
     this.token = '';
     this.currentBoard = {};
+    this.currentTask = {};
   }
 }
 

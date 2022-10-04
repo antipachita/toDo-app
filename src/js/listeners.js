@@ -157,9 +157,20 @@ import { v4 as uuidv4 } from 'uuid';
         await api.deleteTask(model.login, model.currentBoard.id, btnId, value)
       });
 
-      updateTodo.addEventListener('click', function(e) {
+      updateTodo.addEventListener('click', async function(e) {
         dropdownBlock.classList.toggle('view');
         textField.textContent = updateInput.value;
+        const background = document.querySelector('#update-background');
+        if (e.target.classList.contains('changing')) {
+          background.classList.remove('visiable');
+          updateTodo.style.zIndex = "1";
+          await api.updateTask(model.login, model.currentBoard.id, btnId, model.currentTask, updateInput.value);
+        } else {
+          background.classList.add('visiable');
+          updateTodo.style.zIndex = "100";
+          model.currentTask = updateInput.value;
+        }
+        updateTodo.classList.toggle('changing');
       });
   
       new Sortable(wrapper, {
@@ -190,8 +201,10 @@ import { v4 as uuidv4 } from 'uuid';
       const columnsContainer = document.querySelector('#columns-container');
       const columnName = document.querySelector('#name-input');
       const uuid = uuidv4();
-      columnsContainer.append(column.getElement(columnName.value, uuid));
-      await api.createColumn(model.login, model.currentBoard, columnName.value, uuid);
+      if (columnName.value.trim() != '') {
+        columnsContainer.append(column.getElement(columnName.value, uuid));
+        await api.createColumn(model.login, model.currentBoard, columnName.value, uuid);
+      }
     });
   }
 

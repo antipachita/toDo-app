@@ -168,6 +168,21 @@ class API {
     }
   }
 
+  async updateTask(login, boardsId, columnId, oldTask, newTask) {
+    const response = await fetch(`${this.baseUrl}updatetask`, {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ login: login, board: boardsId, columnId: columnId, oldTask: oldTask, newTask: newTask}),
+    });
+    if (response.ok) {
+      console.log('Задача обновлена');
+      return await response.json();  
+    }
+  }
+
  
 }
 

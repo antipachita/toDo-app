@@ -4,8 +4,8 @@ class AuthHeader {
   getHTML() {
     return `
     <div id='logo'></div>
-    <nav id='nav'>
-      <ul id='ul-nav'>
+    <nav id='auth-nav'>
+      <ul id='auth-ul-nav'>
         <li class='nav-link' id='nav-main-link'>Главная</li>
       </ul>
       <ul id='auth-panel-header'>

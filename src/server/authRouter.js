@@ -17,6 +17,7 @@ router.get('/column', controller.getColumns);
 router.get('/onecolumn', controller.getColumn);
 router.post('/chngcolumn', controller.changeColumn);
 router.post('/deltask', controller.delTask);
+router.post('/updatetask', controller.updateTask);
 router.delete('/deltcolumn', controller.deleteColumn);
 router.post('/deleteboard', controller.deleteBoard);
 

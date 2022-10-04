@@ -1,3 +1,10 @@
+#auth-nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 93%;
+}
+
 #auth-panel-header {
   display: flex;
   justify-content: end;

@@ -42,11 +42,18 @@ class Task {
       await api.deleteTask(model.login, model.currentBoard.id, id, name);
     });
 
-    updateTodo.addEventListener('click', function(e) {
+    updateTodo.addEventListener('click', async function(e) {
       dropdownBlock.classList.toggle('view');
       textField.textContent = updateInput.value;
+      const background = document.querySelector('#update-background');
       if (e.target.classList.contains('changing')) {
-        console.log(1);
+        background.classList.remove('visiable');
+        updateTodo.style.zIndex = "1";
+        await api.updateTask(model.login, model.currentBoard.id, id, model.currentTask, updateInput.value);
+      } else {
+        background.classList.add('visiable');
+        updateTodo.style.zIndex = "100";
+        model.currentTask = updateInput.value;
       }
       updateTodo.classList.toggle('changing');
 
