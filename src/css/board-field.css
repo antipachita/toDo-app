@@ -1,0 +1,41 @@
+.board-field {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 1%;
+  padding: 1.5%;
+  border-top: 1px solid rgb(180, 140, 75);
+  width: 100%;
+  font-size: 22px;
+}
+
+.field-subtitle{
+  margin-top: 10%;
+}
+
+.btn-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 60px;
+  width: 20%;
+}
+
+.field-btn {
+  width: 40%;
+  height: 40px;
+  font-size: 16px;
+  cursor: pointer;
+  border: 2px solid rgba(162, 158, 158, 0.501);
+  border-radius: 5px;
+}
+
+.field-btn:hover {
+  background-color: rgb(202, 150, 44);
+  color: #014d54;
+  transition: 0.4s ease-in-out;
+}
+
+.descrpt-field {
+  color: rgba(0,0,0,.45);
+}

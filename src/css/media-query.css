@@ -1,0 +1,118 @@
+@media (max-width: 1239px) {
+  #nav {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    width: 93%;
+  }
+
+  #ul-nav {
+    display: none;
+  }
+
+  #auth-panel{
+    width: 25%;
+  }
+}
+
+@media (max-width: 1000px) {
+  #create-board-btn {
+    width: 16%;
+  }
+}
+@media (max-width: 900px) {
+
+  #auth-panel-header {
+    width: 13%;
+    justify-content: center;
+    
+  }
+
+  #log-out {
+    font-size: 0;
+    width: 40px;
+    height: 40px;
+    background: url(../assets/images/logout.png) no-repeat;
+    background-size: 100% 100%;
+    cursor: pointer;
+  }
+
+  .btn-container {
+    width: 25%;
+  }
+
+  .field-btn {
+    width: 45%;
+  }
+}
+
+@media (max-width: 790px) {
+
+  #main-title {
+    font-size: 24px;
+  }
+
+  .name-field {
+    font-size: 18px;
+  }
+
+  .descrpt-field {
+    font-size: 16px;
+  }
+
+  #create-board-btn {
+    width: 22%;
+    font-size: 14px;
+  }
+
+  .field-btn {
+    font-size: 10.5px;
+  }
+
+  .todo-wrapper{
+    height: 380px;
+  }
+
+  #boards-name-title{
+    font-size: 16px;
+  }
+
+  #boards-name-subtitle{
+    font-size: 14px;
+  }
+  #btn-container {
+    width: 13%;
+  }
+  #create-column-btn {
+    font-size: 10px;
+  }
+}
+
+@media (max-width: 468px) {
+  #create-board-btn {
+    width: 20%;
+    height: 24px;
+    font-size: 10px;
+  }
+
+  .name-field {
+    font-size: 14px;
+  }
+
+  .descrpt-field {
+    font-size: 12px;
+  }
+  
+  .field-btn {
+    width: 45%;
+    font-size: 9.5px;
+  }
+
+  .item {
+    font-size: 10px;
+  }
+
+  .del-column-btn {
+    font-size: 12px;
+  }
+}
