@@ -48,6 +48,7 @@
   margin: 10px 0;
   height: 40px;
   font-size: 20px;
+  cursor: pointer;
 }
 
 .item {
@@ -93,6 +94,12 @@
   justify-content: center;
   background-color: rgb(174, 110, 110);
   cursor: pointer;
+}
+
+.del-column-btn:hover {
+  background-color: rgba(145, 56, 229, 0.823);
+  transition: 0.4s ease-in-out;
+  color: rgba(221, 221, 221, 0.81);
 }
 
 
