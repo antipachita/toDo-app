@@ -7,10 +7,9 @@ class AuthHeader {
     <nav id='nav'>
       <ul id='ul-nav'>
         <li class='nav-link' id='nav-main-link'>Главная</li>
-        <li class='nav-link'>Профиль</li>
       </ul>
-      <ul id='auth-panel'>
-        <li class='nav-link' id='log-in'><nobr>Изменить тему</nobr></li>
+      <ul id='auth-panel-header'>
+        <li class='nav-link-auth' id='log-out'>Выйти</li>
       </ul>
     </nav>
     `

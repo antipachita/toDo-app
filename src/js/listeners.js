@@ -12,6 +12,7 @@ import {model} from './model';
 import { v4 as uuidv4 } from 'uuid';
 
 
+
   function createSigIn() {
     const signUp = document.querySelector('#sign-up');
     signUp.addEventListener('click', function() {
@@ -49,15 +50,18 @@ import { v4 as uuidv4 } from 'uuid';
           body.push(entry);
         }
         const userInfo = await api.loginUser(Object.fromEntries(body));
+        console.log(body)
         model.login = userInfo.username;
-        model.token = userInfo.token;
+        localStorage.setItem('login', body[0][1]);
+        localStorage.setItem('password', body[1][1]);
         if (userInfo) {
           const userData = await api.getUsers(model.login);
           document.querySelector('#header').innerHTML= authHeader.getHTML();
           document.querySelector('#main').innerHTML= main.getHTML();
           popUp();
           createBoard();
-          
+          mainMenuBtn();
+          closeAppMenuBtn();
           const mainContainer = document.querySelector('#main-container');
           for (let i = 0; i < userData.boards.length; i++) {
             mainContainer.append(createBoardField(userData.boards[i].name, userData.boards[i].description, userData.boards[i].id))
@@ -83,7 +87,6 @@ import { v4 as uuidv4 } from 'uuid';
 
   function createBoard() {
     const openPopUp = document.querySelector('#approve-create-board-btn');
-    console.log(1)
     openPopUp.addEventListener('click', async function (e){
       e.preventDefault();
       const mainContainer = document.querySelector('#main-container');
@@ -99,7 +102,7 @@ import { v4 as uuidv4 } from 'uuid';
 
   function openBoardBtn() {
     const btn = document.querySelector('.open-board-btn');
-    btn.addEventListener('click', function (e){
+    btn.addEventListener('click', async function (e){
       const mainContainer = document.querySelector('#main-container');
       mainContainer.innerHTML = boardPage.getHtml();
     });
@@ -115,28 +118,54 @@ import { v4 as uuidv4 } from 'uuid';
     });
   }
 
-  function toDo(value, wrapper) {
+  async function toDo(value, wrapper, btnId) {
     if(value != '') { 
       const newTodoList = document.createElement('div');
       newTodoList.className = 'item';
-      newTodoList.innerHTML = value;
       wrapper.append(newTodoList);
+
+      const textField = document.createElement('div');
+      textField.textContent = value;
+      newTodoList.append(textField);
         
       const deletTodo = document.createElement('div');
       deletTodo.className = 'delete-task';
       deletTodo.innerHTML = '&#10006';
       newTodoList.append(deletTodo);
 
+      const dropdownBlock = document.createElement('div');
+      dropdownBlock.className = 'dropdown-content';
+
+      const updateTodo = document.createElement('div');
+      updateTodo.className = 'update-task';
+      updateTodo.innerHTML = '&#9986';
+      newTodoList.append(updateTodo);
+
+      const updateInput = document.createElement('input');
+      updateInput.className = 'dropdown-input';
+      updateInput.value = value;
+      dropdownBlock.append(updateInput);
+      newTodoList.append(dropdownBlock);
+
       newTodoList.addEventListener('click', function (e) {
-        e.currentTarget.classList.toggle('completed');
+        if (e.target.classList.contains('item')) {
+          e.currentTarget.classList.toggle('completed');
+        }
       });
-      deletTodo.addEventListener('click', function () {
+      deletTodo.addEventListener('click', async function () {
         newTodoList.remove();
+        await api.deleteTask(model.login, model.currentBoard.id, btnId, value)
+      });
+
+      updateTodo.addEventListener('click', function(e) {
+        dropdownBlock.classList.toggle('view');
+        textField.textContent = updateInput.value;
       });
   
       new Sortable(wrapper, {
         animation: 300
       });
+      api.changeColumn(model.login, model.currentBoard, btnId, value)
     } 
   }
 
@@ -156,14 +185,40 @@ import { v4 as uuidv4 } from 'uuid';
 
   function createColumnBtn() {
     const btn = document.querySelector('#approve-create-column-btn');
-    btn.addEventListener('click', function (e){
+    btn.addEventListener('click', async function (e){
       e.preventDefault();
       const columnsContainer = document.querySelector('#columns-container');
       const columnName = document.querySelector('#name-input');
-      columnsContainer.append(column.getElement(columnName.value));
-      api.updateUser(model.login)
-      
+      const uuid = uuidv4();
+      columnsContainer.append(column.getElement(columnName.value, uuid));
+      await api.createColumn(model.login, model.currentBoard, columnName.value, uuid);
     });
   }
 
-export default {createSigIn, createLogin, popUp, createBoard, openBoardBtn, nav, toDo, ColumnBtnPopUp, createColumnBtn};
+  function mainMenuBtn() {
+    const mainMenuBtn = document.querySelector('#nav-main-link');
+    mainMenuBtn.addEventListener('click', async function(e) {
+      const userData = await api.getUsers(model.login);
+      document.querySelector('#main').innerHTML= main.getHTML();
+      popUp();
+      createBoard();
+          
+      const mainContainer = document.querySelector('#main-container');
+      for (let i = 0; i < userData.boards.length; i++) {
+        mainContainer.append(createBoardField(userData.boards[i].name, userData.boards[i].description, userData.boards[i].id))
+      }
+    });
+
+   
+  }
+
+  function closeAppMenuBtn() {
+    const closeAppBtn = document.querySelector('#log-out');
+    closeAppBtn.addEventListener('click', function(e) {
+      const app = new View();
+      localStorage.clear();
+      app.createPage();
+    });
+  }
+
+export default {createSigIn, createLogin, popUp, createBoard, openBoardBtn, nav, toDo, ColumnBtnPopUp, createColumnBtn, mainMenuBtn, closeAppMenuBtn };

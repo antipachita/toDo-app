@@ -2,6 +2,8 @@ import {boardPage} from '../pages/board-page';
 import listeners from '../js/listeners';
 import {api} from '../api/api';
 import {model} from '../js/model';
+import {column} from '../components/column';
+
 
 export  function createBoardField(name, description, id) {
   const boardField = document.createElement("div");
@@ -34,11 +36,16 @@ export  function createBoardField(name, description, id) {
   closeBtn.classList.add('field-btn');
   closeBtn.classList.add('open-board-btn');
   closeBtn.id = id;
-  closeBtn.textContent = 'Закрыть доску';
+  closeBtn.textContent = 'Удалить доску';
 
   boardField.append(infoField, btnContainer);
   infoField.append(h3, h4);
   btnContainer.append(openBtn, closeBtn)
+
+  closeBtn.addEventListener('click', async function() {
+    boardField.remove();
+    await api.deleteUserField(model.login, id);
+  });
 
   
   return boardField;
@@ -56,9 +63,14 @@ function createOpenBoardBtnListenet(elem) {
       }
     }); 
     const mainContainer = document.querySelector('#main-container');
-    mainContainer.innerHTML = boardPage.getHtml();
+    mainContainer.innerHTML = boardPage.getHtml(currentBoard.name, currentBoard.description);
     listeners.ColumnBtnPopUp();
     listeners.createColumnBtn();
 
+    const columns = await api.getColumn(model.login, currentBoard.id);
+    const columnsContainer = document.querySelector('#columns-container');
+    for (let i = 0; i < columns.length; i++) {
+      columnsContainer.append(column.getColumnsPage(columns[i].columnName, columns[i].columnId, columns[i].tasks));
+    }
   });
 }

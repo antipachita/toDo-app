@@ -12,5 +12,12 @@ router.post('/registration',
 router.post('/login', controller.login);
 router.get('/users', controller.getUsers);
 router.post('/user', controller.changeUser);
+router.post('/column', controller.createColumn);
+router.get('/column', controller.getColumns);
+router.get('/onecolumn', controller.getColumn);
+router.post('/chngcolumn', controller.changeColumn);
+router.post('/deltask', controller.delTask);
+router.delete('/deltcolumn', controller.deleteColumn);
+router.post('/deleteboard', controller.deleteBoard);
 
-module.exports = router
+module.exports = router;

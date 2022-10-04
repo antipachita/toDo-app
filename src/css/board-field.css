@@ -1,6 +1,7 @@
 .board-field {
   display: flex;
   justify-content: space-between;
+  align-items: center;
   margin-top: 1%;
   padding: 1.5%;
   border-top: 1px solid rgb(180, 140, 75);
@@ -15,6 +16,8 @@
 .btn-container {
   display: flex;
   justify-content: space-between;
+  align-items: center;
+  height: 60px;
   width: 20%;
 }
 

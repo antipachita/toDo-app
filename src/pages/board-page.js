@@ -4,13 +4,13 @@ import '../css/board-pop-up.css';
 
 
 class BoardPage {
-  getHtml() {
+  getHtml(boardname, description) {
     return `
     <div id='boards-page-container'>
       <div id='board-panel'>
         <div id='titles-container'>
-          <h2>Board title: </h2>
-          <h3>Board description: </h3>
+          <h2>Название доски: ${boardname}</h2>
+          <h3>Описание доски: ${description}</h3>
         </div>
         <div id='btn-container'>
           <button id='create-column-btn'>Создать список</button>

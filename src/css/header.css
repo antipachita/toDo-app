@@ -1,8 +1,10 @@
 header {
   width: 100%;
   display: flex;
-  padding: 1%;
+  padding: 0% 2%;
   background-color: rgb(247, 247, 247);
+  border-bottom: 2px solid rgba(0, 0, 0, 0.041);
+
 }
 
 #logo {
@@ -17,20 +19,27 @@ header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: 100%;
+  width: 93%;
 }
 
 #ul-nav {
   display: flex;
+  width: 20%;
 }
 
 #auth-panel {
   display: flex;
-  margin-right: 8%;
+  width: 18%;
+  
 }
 
 .nav-link {
-  margin-right: 25%;
   font-size: 20px;
   cursor: pointer;
 }
+
+li:nth-child(2) {
+  margin-left: 10%;
+}
+
+
